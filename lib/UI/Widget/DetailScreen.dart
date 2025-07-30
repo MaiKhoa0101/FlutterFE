@@ -1,57 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import '../models/newList.dart';
 
-class DetailNewsScreen extends StatelessWidget{
-  final NewsItem item;
-
-  DetailNewsScreen({super.key, required this.item});
-
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Detail'),
-        leading: IconButton(
-          icon: Icon(Icons.ac_unit),
-          onPressed: () {
-            if (context.canPop()) {
-              context.pop();
-            } else {
-              print("Không thể quay lại");
-            }
-          }
-        ),
-        backgroundColor: Color(0xFFF54949),
-      ),
-
-      body:
-        SingleChildScrollView(
-          child:
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child:
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  titleNews(item.title),
-                  authorAndTime(item.author, item.publishedAt),
-                  imageNews(item.urlToImage),
-                  Divider(
-                    color: Colors.grey,
-                    thickness: 1,
-                  ),
-                  content(item.content)
-
-                ]
-              )
-            )
-        )
-    );
-  }
-}
-
-Widget titleNews(String title){
+Widget titleInDetail(String title){
   return Column(
       children: [
         SizedBox(
@@ -76,14 +25,6 @@ Widget titleNews(String title){
 Widget authorAndTime(String author, String time){
   return Column(
       children: [
-        Text(
-            textAlign: TextAlign.left,
-            author,
-            style: TextStyle(
-              fontSize: 12,
-              fontStyle: FontStyle.italic,
-            )
-        ),
         Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -127,6 +68,8 @@ Widget imageNews(String url){
       ]
   );
 }
+
+
 Widget content(String content){
   return Column(
     children: [

@@ -1,5 +1,5 @@
-import 'package:fluterfestudy/models/newList.dart';
 
+import '../models/newList.dart';
 import '../service/NewsService.dart';
 
 class NewsViewModel {
