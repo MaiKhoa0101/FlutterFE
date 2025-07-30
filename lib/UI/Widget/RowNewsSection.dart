@@ -11,7 +11,7 @@ Widget RowNewsSection(BuildContext context, NewsItem item) {
       children: [
         const Divider(color: Colors.grey, thickness: 1, height: 0),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -20,26 +20,6 @@ Widget RowNewsSection(BuildContext context, NewsItem item) {
                     maxLines: 5, overflow: TextOverflow.ellipsis),
               ),
               const SizedBox(width: 15),
-              PopupMenuButton<String>(
-                icon: const Icon(Icons.more_vert),
-                onSelected: (value) {
-                  if (value == 'edit') {
-                    print('Chỉnh sửa');
-                  } else if (value == 'delete') {
-                    print('Xoá');
-                  }
-                },
-                itemBuilder: (context) => const [
-                  PopupMenuItem(
-                    value: 'edit',
-                    child: Text('Chỉnh sửa'),
-                  ),
-                  PopupMenuItem(
-                    value: 'delete',
-                    child: Text('Xoá'),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
