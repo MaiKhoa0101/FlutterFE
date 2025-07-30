@@ -78,6 +78,20 @@ class _DetailTaskState extends State<DetailTask> {
           _buildTextField(titleController, "Tiêu đề"),
           const SizedBox(height: 20),
           _buildTextField( contentController, "Nội dung"),
+          const SizedBox(height: 20),
+          if (isEditing)
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Center(
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  onPressed: saveChanges,
+                  label: const Text("Lưu thay đổi", style: TextStyle(color: Colors.white)),
+                ),
+              ),
+            ),
         ],
       )
     );

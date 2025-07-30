@@ -6,8 +6,8 @@ class NewsService{
   final Dio _dio = Dio(
     BaseOptions(
       baseUrl: 'https://newsapi.org',
-      connectTimeout: Duration(seconds: 5),
-      receiveTimeout: Duration(seconds: 5),
+      connectTimeout: Duration(seconds: 10),
+      receiveTimeout: Duration(seconds: 10),
     ),
   );
 
