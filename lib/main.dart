@@ -14,9 +14,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  if (!Hive.isBoxOpen('Task Box')) {
-    await Hive.deleteBoxFromDisk('Task Box');
-  }
+  // if (!Hive.isBoxOpen('Task Box')) {
+  //   await Hive.deleteBoxFromDisk('Task Box');
+  // }
   // To open the user hive box
   await Hive.openBox(taskHiveBox);
   runApp(const MyApp());
