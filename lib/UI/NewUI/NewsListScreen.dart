@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../dependency injections/locator.dart';
 import '../../viewmodel/newsViewModel.dart';
 import '../Widget/RowNewsSection.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../state management/bloc_news.dart';
 
 class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});
@@ -10,33 +13,39 @@ class NewsListScreen extends StatefulWidget {
 }
 
 class _NewsListScreenState extends State<NewsListScreen> {
-  final newsViewModel = NewsViewModel();
+  final newsViewModel = locator<NewsViewModel>();
 
-  @override
-  void initState() {
-    super.initState();
-    _loadNews(); // Tải lần đầu
-  }
-
-  Future<void> _loadNews() async {
-    await newsViewModel.getNews();
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
     final news = newsViewModel.news;
 
-    return Scaffold(
-      body: news.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-        onRefresh: _loadNews,
-        child: ListView.builder(
-          itemCount: news.length,
-          itemBuilder: (context, index) {
-            final item = news[index];
-            return RowNewsSection(context, item);
+    return  BlocProvider(
+      create: (_) => NewsBloc(locator.get())..add(GetNews()),
+      child: Scaffold(
+        body: BlocBuilder<NewsBloc, NewsState>(
+          builder: (context, state) {
+            if (state is NewsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is NewsLoaded) {
+              final news = state.news;
+              return RefreshIndicator(
+                onRefresh: () async {
+                  context.read<NewsBloc>().add(GetNews());
+                },
+                
+                child: ListView.builder(
+                  itemCount: news.length,
+                  itemBuilder: (context, index) {
+                    final item = news[index];
+                    return RowNewsSection(context, item);
+                  },
+                ),
+              );
+            } else if (state is NewsError) {
+              return Center(child: Text('Lỗi: ${state.message}'));
+            }
+            return const SizedBox.shrink();
           },
         ),
       ),

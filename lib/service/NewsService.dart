@@ -11,7 +11,6 @@ class NewsService{
     ),
   );
 
-
   Future<List<NewsItem>> getNews() async {
     final response = await _dio.get('/v2/everything?q=tesla&sortBy=publishedAt&apiKey=101793badfc14e7288721fd180361228');
     final List<dynamic> articles = response.data['articles'];
