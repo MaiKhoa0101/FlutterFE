@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../hive/hivefunction.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../state management/bloc_task.dart';
 import '../../models/taskList.dart';
 
 class DetailTask extends StatefulWidget {
@@ -34,9 +35,9 @@ class _DetailTaskState extends State<DetailTask> {
   }
 
   void saveChanges() {
-    task.title = titleController.text;
-    task.content = contentController.text;
-    HiveFunctions.updateTask(task.key!, task.title, task.content);
+    context.read<TaskBloc>().add(
+      UpdateTask(task.key!, titleController.text, contentController.text),
+    );
     setState(() {
       isEditing = false;
       isUpdated = true;
