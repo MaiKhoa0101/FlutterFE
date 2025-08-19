@@ -16,9 +16,9 @@ void main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  // if (!Hive.isBoxOpen('Task Box')) {
-  //   await Hive.deleteBoxFromDisk('Task Box');
-  // }
+  if (!Hive.isBoxOpen('Task Box')) {
+    await Hive.deleteBoxFromDisk('Task Box');
+  }
   await Hive.openBox(taskHiveBox);
   runApp(const MyApp());
 }
