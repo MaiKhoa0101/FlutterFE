@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../dataclass/taskList.dart';
-import '../../helper/state management/bloc_task.dart';
+
+import '../../../dataclass/taskList.dart';
+import '../../../helper/state management/bloc_task.dart';
 
 class DetailTask extends StatefulWidget {
   final TaskItem item;

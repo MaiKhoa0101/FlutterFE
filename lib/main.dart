@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfetest/presentation/UI/NewUI/DetailNews.dart';
+import 'package:flutterfetest/presentation/UI/TodoUI/DetailTask.dart';
+import 'package:flutterfetest/presentation/UI/mainscaffold.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'UI/NewUI/DetailNews.dart';
-import 'UI/TodoUI/DetailTask.dart';
-import 'UI/mainscaffold.dart';
 import 'dataclass/newList.dart';
 import 'dataclass/taskList.dart';
 import 'domain/hive/hivefunction.dart';
@@ -14,7 +13,6 @@ import 'helper/state management/bloc_task.dart';
 
 
 void main() async {
-  setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   if (!Hive.isBoxOpen('Task Box')) {
@@ -28,15 +26,12 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => TaskBloc(locator.get())..add(LoadTasks()),
-      child: MaterialApp.router(
+    return MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'Flutter App',
         theme: ThemeData(primarySwatch: Colors.red),
         routerConfig: _router,
-      ),
-    );
+      );
   }
 }
 

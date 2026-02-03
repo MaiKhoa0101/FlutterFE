@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../dataclass/newList.dart';
+import '../../../dataclass/newList.dart';
 import '../Widget/DetailScreen.dart';
 import '../Widget/TopBar.dart';
 
@@ -19,9 +19,7 @@ class DetailNewsScreen extends StatelessWidget {
           children: [
             titleInDetail(item.title),
             const SizedBox(height: 10),
-            authorAndTime(item.author, item.publishedAt),
-            const SizedBox(height: 10),
-            imageNews(item.urlToImage),
+            imageNews(item.media),
             const Divider(color: Colors.grey, thickness: 1),
             content(item.content),
           ],

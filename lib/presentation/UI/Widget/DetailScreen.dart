@@ -53,8 +53,18 @@ Widget authorAndTime(String author, String time){
   );
 }
 
-Widget imageNews(String url){
+//Cố thể có nhiều ảnh nên dùng list để hiển thị
+Widget imageNews(List<String> url){
   return Column(
+      children: [
+        for (var url in url)
+          image(url)
+      ]
+  );
+}
+
+Widget image(String url){
+  return  Column(
       children: [
         Image(
           image: NetworkImage(url),

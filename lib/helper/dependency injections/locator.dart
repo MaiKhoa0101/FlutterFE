@@ -1,20 +1,36 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import '../../domain/repository/NewsRepository.dart';
 import '../../domain/service/NewsService.dart';
+import '../../domain/usecase/get_news_usecase.dart';
 import '../../viewmodel/newsViewModel.dart';
 import '../state management/bloc_news.dart';
 
 
-final locator = GetIt.instance;
+final sl = GetIt.instance;
 
-void setupLocator() {
-  locator.registerSingleton<NewsService>(NewsService());
+Future<void> init() async {
+  //! Features - News
+  // Bloc
+  sl.registerFactory(() => NewsBloc(getNewsUseCase: sl()));
 
-  locator.registerLazySingleton(() => NewsRepository(locator.get()));
+  // Use cases
+  sl.registerLazySingleton(() => GetNewsUseCase(sl()));
 
-  locator.registerLazySingleton(() => NewsBloc(locator.get()));
+  // Repository
+  sl.registerLazySingleton<NewsRepository>(
+        () => NewsRepositoryImpl(remoteDataSource: sl()),
+  );
 
-  locator.registerLazySingleton(() => NewsViewModel(locator.get()));
+  // Data sources
+  sl.registerLazySingleton<NewsRemoteDataSource>(
+        () => NewsRemoteDataSourceImpl(dio: sl()),
+  );
 
-
+  //! External
+  sl.registerLazySingleton(() {
+    final dio = Dio();
+    dio.options.baseUrl = 'http://192.168.1.219:4000'; // Set Base URL ở đây
+    return dio;
+  });
 }
