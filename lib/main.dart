@@ -6,11 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'UI/NewUI/DetailNews.dart';
 import 'UI/TodoUI/DetailTask.dart';
 import 'UI/mainscaffold.dart';
-import 'dependency injections/locator.dart';
-import 'hive/hivefunction.dart';
-import 'models/newList.dart';
-import 'models/taskList.dart';
-import './state management/bloc_task.dart';
+import 'dataclass/newList.dart';
+import 'dataclass/taskList.dart';
+import 'domain/hive/hivefunction.dart';
+import 'helper/dependency injections/locator.dart';
+import 'helper/state management/bloc_task.dart';
+
 
 void main() async {
   setupLocator();

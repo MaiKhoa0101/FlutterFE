@@ -1,6 +1,7 @@
+import 'package:flutter/foundation.dart';
 
-import '../data/repository/NewsRepository.dart';
-import '../models/newList.dart';
+import '../dataclass/newList.dart';
+import '../domain/repository/NewsRepository.dart';
 
 // NewsViewModel là một lớp ViewModel để quản lý trạng thái của dữ liệu tin tức
 // Nó sử dụng NewsRepository để lấy dữ liệu và cung cấp các phương thức để truy cập
@@ -40,11 +41,17 @@ class NewsViewModel {
     isLoading = true;
     try {
       _news = await _newsRepository.getNews();
-      print("Lấy news thành công");
+      if (kDebugMode) {
+        print("Lấy news thành công");
+      }
     } catch (e, response) {
-      print(response);
+      if (kDebugMode) {
+        print(response);
+      }
       errorMessage = e.toString();
-      print("Lấy news thất bại. Lỗi: $errorMessage");
+      if (kDebugMode) {
+        print("Lấy news thất bại. Lỗi: $errorMessage");
+      }
     }
     isLoading = false;
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../dependency injections/locator.dart';
+import '../../helper/dependency injections/locator.dart';
+import '../../helper/state management/bloc_news.dart';
 import '../../viewmodel/newsViewModel.dart';
 import '../Widget/RowNewsSection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../state management/bloc_news.dart';
 
 class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});

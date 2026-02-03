@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../models/newList.dart';
+import '../../dataclass/newList.dart';
 
 Widget RowNewsSection(BuildContext context, NewsItem item) {
   return InkWell(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../models/newList.dart';
+import '../../dataclass/newList.dart';
 import '../Widget/DetailScreen.dart';
 import '../Widget/TopBar.dart';
 

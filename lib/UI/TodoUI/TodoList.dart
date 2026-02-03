@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../state management/bloc_task.dart';
-import '../../dependency injections/locator.dart';
-import '../../models/taskList.dart';
+import '../../dataclass/taskList.dart';
+import '../../helper/state management/bloc_task.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -58,8 +57,8 @@ class TaskScreen extends StatelessWidget {
             context.read<TaskBloc>().add(DeleteAllTasks());
           },
           backgroundColor: Colors.red,
-          child: const Icon(Icons.delete_forever),
           tooltip: 'Xoá tất cả',
+          child: const Icon(Icons.delete_forever),
         ),
       ],
     );
