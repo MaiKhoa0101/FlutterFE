@@ -4,16 +4,15 @@ import 'package:flutterfetest/presentation/UI/TodoUI/DetailTask.dart';
 import 'package:flutterfetest/presentation/UI/mainscaffold.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dataclass/newList.dart';
 import 'dataclass/taskList.dart';
 import 'domain/hive/hivefunction.dart';
-import 'helper/dependency injections/locator.dart';
-import 'helper/state management/bloc_task.dart';
+import 'helper/dependency injections/locator.dart' as di;
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await di.init(); // Khởi tạo tất cả dependencies
   await Hive.initFlutter();
   if (!Hive.isBoxOpen('Task Box')) {
     await Hive.deleteBoxFromDisk('Task Box');
