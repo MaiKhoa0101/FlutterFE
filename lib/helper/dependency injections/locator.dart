@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 import '../../domain/repository/NewsRepository.dart';
 import '../../domain/service/NewsService.dart';
 import '../../domain/usecase/get_news_usecase.dart';
-import '../../viewmodel/newsViewModel.dart';
 import '../state management/bloc_news.dart';
 
 
@@ -30,7 +29,7 @@ Future<void> init() async {
   //! External
   sl.registerLazySingleton(() {
     final dio = Dio();
-    dio.options.baseUrl = 'http://192.168.0.101:4000'; // Set Base URL ở đây
+    dio.options.baseUrl = 'http://192.168.1.219:4000'; // Set Base URL ở đây
     return dio;
   });
 }

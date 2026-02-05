@@ -48,8 +48,8 @@ class TaskScreen extends StatelessWidget {
           onPressed: () {
             context.read<TaskBloc>().add(AddTask('Tiêu đề mới', 'Nội dung mới'));
           },
-          child: const Icon(Icons.add),
           tooltip: 'Tạo công việc mới',
+          child: const Icon(Icons.add),
         ),
         const SizedBox(height: 10),
         FloatingActionButton(
