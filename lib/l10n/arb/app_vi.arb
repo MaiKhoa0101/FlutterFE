@@ -1,0 +1,6 @@
+{
+  "app_name": "HelloDoc",
+  "welcome_message": "Chào mừng đến với HelloDoc",
+  "api_test_button": "Thử kết nối API",
+  "clean_project_success": "Dự án đã được làm sạch!"
+}
