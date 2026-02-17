@@ -1,0 +1,15 @@
+{
+  "app_name": "HelloDoc",
+  "first_fragment_label": "First Fragment",
+  "second_fragment_label": "Second Fragment",
+  "next": "Tiep theo",
+  "previous": "Truoc do",
+  "title_activity_home": "Trang chu",
+  "title_activity_admin_user": "Quan tri vien",
+  "title_activity_admin_lich_hen": "Lich hen Admin",
+  "title_activity_specialty_screen": "Man hinh Chuyen khoa",
+  "title_activity_doctor_list": "Danh sach Bac si",
+  "title_activity_doctor_profile_screen": "Ho so Bac si",
+  "title_activity_booking": "Dat lich",
+  "lorem_ipsum": "Lorem ipsum..."
+}
