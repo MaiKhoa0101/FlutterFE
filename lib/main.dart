@@ -1,63 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfetest/presentation/UI/NewUI/DetailNews.dart';
-import 'package:flutterfetest/presentation/UI/TodoUI/DetailTask.dart';
-import 'package:flutterfetest/presentation/UI/mainscaffold.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/adapters.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dataclass/newList.dart';
-import 'dataclass/taskList.dart';
-import 'domain/hive/hivefunction.dart';
-import 'helper/dependency injections/locator.dart';
-import 'helper/state management/bloc_task.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import 'core/di/injection.dart'; // Import cấu hình DI
+import 'core/router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // 1. Initialize Hive
   await Hive.initFlutter();
-  if (!Hive.isBoxOpen('Task Box')) {
-    await Hive.deleteBoxFromDisk('Task Box');
-  }
-  await Hive.openBox(taskHiveBox);
+  
+  // 2. Initialize Dependency Injection (Quan trọng nhất)
+  // Hàm này sẽ gọi GetIt.init() từ file generated, giúp đăng ký Dio
+  configureDependencies();
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter App',
-        theme: ThemeData(primarySwatch: Colors.red),
-        routerConfig: _router,
-      );
+      title: 'HelloDoc',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      routerConfig: appRouter,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('vi'), // Vietnamese
+      ],
+    );
   }
 }
-
-// Không cần BlocProvider trong GoRouter nữa!
-final GoRouter _router = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => MainScaffold(),
-      routes: [
-        GoRoute(
-          path: 'detailTask',
-          builder: (context, state) {
-            final item = state.extra as TaskItem;
-            return DetailTask(item: item);
-          },
-        ),
-      ],
-    ),
-    GoRoute(
-      path: '/detailNews',
-      builder: (context, state) {
-        final item = state.extra as NewsItem;
-        return DetailNewsScreen(item: item);
-      },
-    ),
-  ],
-);

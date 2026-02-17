@@ -104,77 +104,23 @@ abstract class AppLocalizations {
   /// **'HelloDoc'**
   String get app_name;
 
-  /// No description provided for @first_fragment_label.
+  /// No description provided for @welcome_message.
   ///
   /// In en, this message translates to:
-  /// **'First Fragment'**
-  String get first_fragment_label;
+  /// **'Welcome to HelloDoc'**
+  String get welcome_message;
 
-  /// No description provided for @second_fragment_label.
+  /// No description provided for @api_test_button.
   ///
   /// In en, this message translates to:
-  /// **'Second Fragment'**
-  String get second_fragment_label;
+  /// **'Test API Connection'**
+  String get api_test_button;
 
-  /// No description provided for @next.
+  /// No description provided for @clean_project_success.
   ///
   /// In en, this message translates to:
-  /// **'Next'**
-  String get next;
-
-  /// No description provided for @previous.
-  ///
-  /// In en, this message translates to:
-  /// **'Previous'**
-  String get previous;
-
-  /// No description provided for @title_activity_home.
-  ///
-  /// In en, this message translates to:
-  /// **'Home'**
-  String get title_activity_home;
-
-  /// No description provided for @title_activity_admin_user.
-  ///
-  /// In en, this message translates to:
-  /// **'Admin User'**
-  String get title_activity_admin_user;
-
-  /// No description provided for @title_activity_admin_lich_hen.
-  ///
-  /// In en, this message translates to:
-  /// **'Admin Appointment'**
-  String get title_activity_admin_lich_hen;
-
-  /// No description provided for @title_activity_specialty_screen.
-  ///
-  /// In en, this message translates to:
-  /// **'Specialty Screen'**
-  String get title_activity_specialty_screen;
-
-  /// No description provided for @title_activity_doctor_list.
-  ///
-  /// In en, this message translates to:
-  /// **'Doctor List'**
-  String get title_activity_doctor_list;
-
-  /// No description provided for @title_activity_doctor_profile_screen.
-  ///
-  /// In en, this message translates to:
-  /// **'Doctor Profile Screen'**
-  String get title_activity_doctor_profile_screen;
-
-  /// No description provided for @title_activity_booking.
-  ///
-  /// In en, this message translates to:
-  /// **'Booking Activity'**
-  String get title_activity_booking;
-
-  /// No description provided for @lorem_ipsum.
-  ///
-  /// In en, this message translates to:
-  /// **'Lorem ipsum...'**
-  String get lorem_ipsum;
+  /// **'Project cleaned successfully!'**
+  String get clean_project_success;
 }
 
 class _AppLocalizationsDelegate

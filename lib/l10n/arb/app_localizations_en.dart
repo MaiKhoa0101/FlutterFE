@@ -12,38 +12,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_name => 'HelloDoc';
 
   @override
-  String get first_fragment_label => 'First Fragment';
+  String get welcome_message => 'Welcome to HelloDoc';
 
   @override
-  String get second_fragment_label => 'Second Fragment';
+  String get api_test_button => 'Test API Connection';
 
   @override
-  String get next => 'Next';
-
-  @override
-  String get previous => 'Previous';
-
-  @override
-  String get title_activity_home => 'Home';
-
-  @override
-  String get title_activity_admin_user => 'Admin User';
-
-  @override
-  String get title_activity_admin_lich_hen => 'Admin Appointment';
-
-  @override
-  String get title_activity_specialty_screen => 'Specialty Screen';
-
-  @override
-  String get title_activity_doctor_list => 'Doctor List';
-
-  @override
-  String get title_activity_doctor_profile_screen => 'Doctor Profile Screen';
-
-  @override
-  String get title_activity_booking => 'Booking Activity';
-
-  @override
-  String get lorem_ipsum => 'Lorem ipsum...';
+  String get clean_project_success => 'Project cleaned successfully!';
 }
