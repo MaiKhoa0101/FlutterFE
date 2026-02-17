@@ -1,4 +1,4 @@
-name: flutterfetest
+name: CherryApp
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -70,10 +70,11 @@ dev_dependencies:
     sdk: flutter
 
   # Code Generation
-  build_runner: ^2.4.14
-  injectable_generator: ^2.6.3
-  freezed: ^2.4.6
-  json_serializable: ^6.9.3
+  build_runner: 
+  injectable_generator: 
+  freezed: 
+  json_serializable: 
+  hive_generator:
 
   # Testing
   mocktail: ^1.0.4

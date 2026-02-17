@@ -1,64 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:dio/dio.dart';
-import '../../../../core/di/injection.dart'; // Import getIt
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  String _apiStatus = "Chưa gọi API";
-
-  Future<void> _testApi() async {
-    try {
-      final dio = getIt<Dio>(); // Lấy Dio từ GetIt đã config
-      // Gọi thử API placeholder để test kết nối
-      final response = await dio.get('https://jsonplaceholder.typicode.com/todos/1'); 
-      setState(() {
-        _apiStatus = "API OK: ${response.statusCode}\nData: ${response.data['title']}";
-      });
-    } catch (e) {
-      setState(() {
-        _apiStatus = "Lỗi API: $e";
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("HelloDoc - Clean Start"),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      appBar: AppBar(title: const Text('Quản lý cà phê Cherry'), backgroundColor: Colors.pink[200],),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.yellow[50]!, Colors.white],
+          ),
+        ),
+        child: GridView.count(
+          crossAxisCount: 2,
+          padding: const EdgeInsets.all(20),
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
           children: [
-            const Icon(Icons.check_circle, color: Colors.green, size: 80),
-            const SizedBox(height: 20),
-            const Text(
-              "Dự án đã được làm sạch!",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            _buildMenuCard(
+              context, 
+              'Kho Nguyên Liệu', 
+              Icons.warehouse_rounded, 
+              Colors.orange, 
+              '/inventory'
             ),
-            const SizedBox(height: 10),
-            const Text("Cấu hình hiện tại: Dio, Hive, GoRouter, GetIt"),
-            const SizedBox(height: 40),
-            ElevatedButton(
-              onPressed: _testApi,
-              child: const Text("Test Kết nối API (Dio)"),
+            _buildMenuCard(
+              context, 
+              'Menu & Công thức', 
+              Icons.menu_book_rounded, 
+              Colors.pink, 
+              '/products'
             ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.grey[200],
-              child: Text(_apiStatus, textAlign: TextAlign.center),
+            _buildMenuCard(
+              context, 
+              'Bán Hàng', 
+              Icons.point_of_sale_rounded, 
+              Colors.green, 
+              '/pos'
+            ),
+            _buildMenuCard(
+              context, 
+              'Báo Cáo', 
+              Icons.bar_chart_rounded, 
+              Colors.purple, 
+              '/reports'
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuCard(BuildContext context, String title, IconData icon, Color color, String route) {
+    return Card(
+      elevation: 4,
+      shadowColor: color.withOpacity(0.4),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        onTap: () => context.push(route),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.white, color.withOpacity(0.05)],
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: color.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, size: 40, color: color),
+              ),
+              const SizedBox(height: 16),
+              Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800])),
+            ],
+          ),
         ),
       ),
     );
