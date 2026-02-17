@@ -47,19 +47,26 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
     final box = await _openBox();
     await box.delete(id);
   }
-
   @override
   Future<void> importStock(String id, double quantity, double cost) async {
     final box = await _openBox();
     final current = box.get(id);
+
     if (current != null) {
-      double totalOldValue = current.quantity * current.costPerUnit;
-      double totalNewValue = quantity * cost;
       double newQuantity = current.quantity + quantity;
-      
-      double newCostPerUnit = (newQuantity > 0) 
-          ? (totalOldValue + totalNewValue) / newQuantity 
-          : cost;
+
+      // Mặc định giữ nguyên giá vốn cũ nếu nhập giá = 0
+      double newCostPerUnit = current.costPerUnit;
+
+      // Chỉ tính lại giá vốn trung bình nếu thực sự có nhập đơn giá mới (> 0)
+      if (cost > 0 && newQuantity > 0) {
+        double totalOldValue = current.quantity * current.costPerUnit;
+        double totalNewValue = quantity * cost;
+        newCostPerUnit = (totalOldValue + totalNewValue) / newQuantity;
+      } else if (current.quantity == 0 && cost > 0) {
+        // Trường hợp kho đang trống và nhập hàng có giá
+        newCostPerUnit = cost;
+      }
 
       final updated = current.copyWith(
         quantity: newQuantity,
@@ -68,7 +75,6 @@ class InventoryLocalDataSourceImpl implements InventoryLocalDataSource {
       await box.put(id, updated);
     }
   }
-
   @override
   Future<void> deductStock(String id, double quantity) async {
     final box = await _openBox();
