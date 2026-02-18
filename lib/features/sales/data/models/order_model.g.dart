@@ -21,13 +21,14 @@ class OrderItemModelAdapter extends TypeAdapter<OrderItemModel> {
       productName: fields[1] as String,
       priceAtSale: fields[2] as double,
       quantity: fields[3] as int,
+      recipeSnapshot: (fields[4] as List?)?.cast<RecipeItemModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, OrderItemModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.productId)
       ..writeByte(1)
@@ -35,7 +36,9 @@ class OrderItemModelAdapter extends TypeAdapter<OrderItemModel> {
       ..writeByte(2)
       ..write(obj.priceAtSale)
       ..writeByte(3)
-      ..write(obj.quantity);
+      ..write(obj.quantity)
+      ..writeByte(4)
+      ..write(obj.recipeSnapshot);
   }
 
   @override
@@ -102,6 +105,9 @@ _$OrderItemModelImpl _$$OrderItemModelImplFromJson(Map<String, dynamic> json) =>
       productName: json['productName'] as String,
       priceAtSale: (json['priceAtSale'] as num).toDouble(),
       quantity: (json['quantity'] as num).toInt(),
+      recipeSnapshot: (json['recipeSnapshot'] as List<dynamic>?)
+          ?.map((e) => RecipeItemModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$OrderItemModelImplToJson(
@@ -111,6 +117,7 @@ Map<String, dynamic> _$$OrderItemModelImplToJson(
       'productName': instance.productName,
       'priceAtSale': instance.priceAtSale,
       'quantity': instance.quantity,
+      'recipeSnapshot': instance.recipeSnapshot,
     };
 
 _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>

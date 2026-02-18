@@ -27,7 +27,11 @@ mixin _$OrderItemModel {
   @HiveField(2)
   double get priceAtSale => throw _privateConstructorUsedError;
   @HiveField(3)
-  int get quantity => throw _privateConstructorUsedError;
+  int get quantity =>
+      throw _privateConstructorUsedError; // THÊM: Lưu công thức tại thời điểm bán để tính giá vốn sau này
+  @HiveField(4)
+  List<RecipeItemModel>? get recipeSnapshot =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +49,8 @@ abstract class $OrderItemModelCopyWith<$Res> {
       {@HiveField(0) String productId,
       @HiveField(1) String productName,
       @HiveField(2) double priceAtSale,
-      @HiveField(3) int quantity});
+      @HiveField(3) int quantity,
+      @HiveField(4) List<RecipeItemModel>? recipeSnapshot});
 }
 
 /// @nodoc
@@ -65,6 +70,7 @@ class _$OrderItemModelCopyWithImpl<$Res, $Val extends OrderItemModel>
     Object? productName = null,
     Object? priceAtSale = null,
     Object? quantity = null,
+    Object? recipeSnapshot = freezed,
   }) {
     return _then(_value.copyWith(
       productId: null == productId
@@ -83,6 +89,10 @@ class _$OrderItemModelCopyWithImpl<$Res, $Val extends OrderItemModel>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      recipeSnapshot: freezed == recipeSnapshot
+          ? _value.recipeSnapshot
+          : recipeSnapshot // ignore: cast_nullable_to_non_nullable
+              as List<RecipeItemModel>?,
     ) as $Val);
   }
 }
@@ -99,7 +109,8 @@ abstract class _$$OrderItemModelImplCopyWith<$Res>
       {@HiveField(0) String productId,
       @HiveField(1) String productName,
       @HiveField(2) double priceAtSale,
-      @HiveField(3) int quantity});
+      @HiveField(3) int quantity,
+      @HiveField(4) List<RecipeItemModel>? recipeSnapshot});
 }
 
 /// @nodoc
@@ -117,6 +128,7 @@ class __$$OrderItemModelImplCopyWithImpl<$Res>
     Object? productName = null,
     Object? priceAtSale = null,
     Object? quantity = null,
+    Object? recipeSnapshot = freezed,
   }) {
     return _then(_$OrderItemModelImpl(
       productId: null == productId
@@ -135,6 +147,10 @@ class __$$OrderItemModelImplCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      recipeSnapshot: freezed == recipeSnapshot
+          ? _value._recipeSnapshot
+          : recipeSnapshot // ignore: cast_nullable_to_non_nullable
+              as List<RecipeItemModel>?,
     ));
   }
 }
@@ -146,8 +162,10 @@ class _$OrderItemModelImpl extends _OrderItemModel {
       {@HiveField(0) required this.productId,
       @HiveField(1) required this.productName,
       @HiveField(2) required this.priceAtSale,
-      @HiveField(3) required this.quantity})
-      : super._();
+      @HiveField(3) required this.quantity,
+      @HiveField(4) final List<RecipeItemModel>? recipeSnapshot})
+      : _recipeSnapshot = recipeSnapshot,
+        super._();
 
   factory _$OrderItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderItemModelImplFromJson(json);
@@ -164,10 +182,22 @@ class _$OrderItemModelImpl extends _OrderItemModel {
   @override
   @HiveField(3)
   final int quantity;
+// THÊM: Lưu công thức tại thời điểm bán để tính giá vốn sau này
+  final List<RecipeItemModel>? _recipeSnapshot;
+// THÊM: Lưu công thức tại thời điểm bán để tính giá vốn sau này
+  @override
+  @HiveField(4)
+  List<RecipeItemModel>? get recipeSnapshot {
+    final value = _recipeSnapshot;
+    if (value == null) return null;
+    if (_recipeSnapshot is EqualUnmodifiableListView) return _recipeSnapshot;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'OrderItemModel(productId: $productId, productName: $productName, priceAtSale: $priceAtSale, quantity: $quantity)';
+    return 'OrderItemModel(productId: $productId, productName: $productName, priceAtSale: $priceAtSale, quantity: $quantity, recipeSnapshot: $recipeSnapshot)';
   }
 
   @override
@@ -182,13 +212,20 @@ class _$OrderItemModelImpl extends _OrderItemModel {
             (identical(other.priceAtSale, priceAtSale) ||
                 other.priceAtSale == priceAtSale) &&
             (identical(other.quantity, quantity) ||
-                other.quantity == quantity));
+                other.quantity == quantity) &&
+            const DeepCollectionEquality()
+                .equals(other._recipeSnapshot, _recipeSnapshot));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, productId, productName, priceAtSale, quantity);
+  int get hashCode => Object.hash(
+      runtimeType,
+      productId,
+      productName,
+      priceAtSale,
+      quantity,
+      const DeepCollectionEquality().hash(_recipeSnapshot));
 
   @JsonKey(ignore: true)
   @override
@@ -207,10 +244,12 @@ class _$OrderItemModelImpl extends _OrderItemModel {
 
 abstract class _OrderItemModel extends OrderItemModel {
   const factory _OrderItemModel(
-      {@HiveField(0) required final String productId,
-      @HiveField(1) required final String productName,
-      @HiveField(2) required final double priceAtSale,
-      @HiveField(3) required final int quantity}) = _$OrderItemModelImpl;
+          {@HiveField(0) required final String productId,
+          @HiveField(1) required final String productName,
+          @HiveField(2) required final double priceAtSale,
+          @HiveField(3) required final int quantity,
+          @HiveField(4) final List<RecipeItemModel>? recipeSnapshot}) =
+      _$OrderItemModelImpl;
   const _OrderItemModel._() : super._();
 
   factory _OrderItemModel.fromJson(Map<String, dynamic> json) =
@@ -228,6 +267,9 @@ abstract class _OrderItemModel extends OrderItemModel {
   @override
   @HiveField(3)
   int get quantity;
+  @override // THÊM: Lưu công thức tại thời điểm bán để tính giá vốn sau này
+  @HiveField(4)
+  List<RecipeItemModel>? get recipeSnapshot;
   @override
   @JsonKey(ignore: true)
   _$$OrderItemModelImplCopyWith<_$OrderItemModelImpl> get copyWith =>

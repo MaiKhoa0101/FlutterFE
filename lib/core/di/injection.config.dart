@@ -60,20 +60,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i509.InventoryLocalDataSourceImpl());
     gh.factory<_i814.ProductLocalDataSource>(
         () => _i814.ProductLocalDataSourceImpl());
+    gh.factory<_i434.SalesRepository>(
+        () => _i779.SalesRepositoryImpl(gh<_i430.SalesLocalDataSource>()));
     gh.factory<_i39.ProductRepository>(
         () => _i1040.ProductRepositoryImpl(gh<_i814.ProductLocalDataSource>()));
     gh.lazySingleton<_i415.ProductBloc>(
         () => _i415.ProductBloc(gh<_i39.ProductRepository>()));
     gh.factory<_i422.InventoryRepository>(() =>
         _i572.InventoryRepositoryImpl(gh<_i509.InventoryLocalDataSource>()));
-    gh.factory<_i434.SalesRepository>(
-        () => _i779.SalesRepositoryImpl(gh<_i430.SalesLocalDataSource>()));
-    gh.factory<_i690.InventoryBloc>(
-        () => _i690.InventoryBloc(gh<_i422.InventoryRepository>()));
     gh.factory<_i249.SalesBloc>(() => _i249.SalesBloc(
           gh<_i434.SalesRepository>(),
           gh<_i422.InventoryRepository>(),
         ));
+    gh.factory<_i690.InventoryBloc>(
+        () => _i690.InventoryBloc(gh<_i422.InventoryRepository>()));
     gh.factory<_i23.ReportRepository>(() => _i420.ReportRepositoryImpl(
           gh<_i434.SalesRepository>(),
           gh<_i422.InventoryRepository>(),
