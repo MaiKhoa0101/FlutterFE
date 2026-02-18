@@ -154,7 +154,8 @@ class __$$IngredientModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$IngredientModelImpl extends _IngredientModel {
   const _$IngredientModelImpl(
       {@HiveField(0) required this.id,

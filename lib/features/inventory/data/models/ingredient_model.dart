@@ -6,10 +6,11 @@ part 'ingredient_model.freezed.dart';
 part 'ingredient_model.g.dart';
 
 @freezed
-@HiveType(typeId: 0) // Hive Adapter ID = 0
+@HiveType(typeId: 0)
 class IngredientModel with _$IngredientModel {
-  const IngredientModel._(); // Allow adding methods
+  const IngredientModel._();
 
+  @JsonSerializable(explicitToJson: true) // Thêm dòng này
   const factory IngredientModel({
     @HiveField(0) required String id,
     @HiveField(1) required String name,
@@ -18,7 +19,9 @@ class IngredientModel with _$IngredientModel {
     @HiveField(4) @Default(0.0) double costPerUnit,
   }) = _IngredientModel;
 
+
   factory IngredientModel.fromJson(Map<String, dynamic> json) => _$IngredientModelFromJson(json);
+
 
   // Expose Adapter statically
   static TypeAdapter<IngredientModel> get adapter => IngredientModelAdapter();

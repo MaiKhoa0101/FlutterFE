@@ -17,23 +17,20 @@ class OrderItemModel with _$OrderItemModel {
     @HiveField(1) required String productName,
     @HiveField(2) required double priceAtSale,
     @HiveField(3) required int quantity,
-    // Lưu lại công thức để tính tồn kho lịch sử nếu cần, hoặc đơn giản là snapshot
-    // Để đơn giản cho Hive, ta không lưu full ProductModel nested quá sâu nếu không cần thiết.
-    // Tuy nhiên, để mapping lại Entity, ta cần Product entity.
-    // Trong thực tế, Order chỉ cần hiển thị tên và giá.
-    // Nhưng để Clean Architecture, ta sẽ map tạm.
+    // THÊM: Lưu công thức tại thời điểm bán để tính giá vốn sau này
+    @HiveField(4) List<RecipeItemModel>? recipeSnapshot,
   }) = _OrderItemModel;
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) => _$OrderItemModelFromJson(json);
   
   static TypeAdapter<OrderItemModel> get adapter => OrderItemModelAdapter();
 
-  // Mapping from Entity
   factory OrderItemModel.fromEntity(OrderItem entity) => OrderItemModel(
     productId: entity.product.id,
     productName: entity.product.name,
     priceAtSale: entity.priceAtSale,
     quantity: entity.quantity,
+    recipeSnapshot: entity.product.recipe.map((r) => RecipeItemModel.fromEntity(r)).toList(),
   );
 }
 
@@ -53,10 +50,6 @@ class OrderModel with _$OrderModel {
 
   static TypeAdapter<OrderModel> get adapter => OrderModelAdapter();
 
-  // Mapping to Entity:
-  // Lưu ý: Khi convert ngược từ DB ra Entity, ta bị thiếu object "Product" đầy đủ (ví dụ thiếu recipe).
-  // Với màn hình lịch sử đơn hàng, ta chỉ cần hiển thị tên và giá, không cần recipe.
-  // Nên ta sẽ tạo một Product "dummy" từ thông tin snapshot.
   Order toEntity() => Order(
     id: id,
     createdAt: createdAt,
@@ -65,8 +58,9 @@ class OrderModel with _$OrderModel {
         id: e.productId, 
         name: e.productName, 
         price: e.priceAtSale, 
-        category: 'History', // Dummy category
-        recipe: [], // Không cần recipe khi xem lịch sử
+        category: 'History', 
+        // Handle null recipeSnapshot
+        recipe: e.recipeSnapshot?.map((r) => r.toEntity()).toList() ?? [],
       ), 
       quantity: e.quantity, 
       priceAtSale: e.priceAtSale
